@@ -28,7 +28,6 @@ El usuario puede interactuar con el programa de la siguiente manera:
 '''
 g++ main.cpp -o biblioteca
 '''
-
 2. Ejecuta el programa
 '''
 ./biblioteca
