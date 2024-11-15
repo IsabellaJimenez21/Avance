@@ -11,7 +11,7 @@ public:
 
     // Implementación de toString para el libro
     std::string toString() const override {
-        return "Libro - Título: " + getTitulo() + 
+        return "Revista - Título: " + getTitulo() + 
                ", ID: " + std::to_string(getId()) + 
                ", Contenido: " + getContenido();
     }

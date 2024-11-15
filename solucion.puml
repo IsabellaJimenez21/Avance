@@ -1,0 +1,11 @@
+@startuml class-diagram 
+
+class Biblioteca {}
+
+class Recurso {}
+
+class Libro {}
+
+class Revista {}
+
+@enduml
