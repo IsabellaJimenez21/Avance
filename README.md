@@ -22,3 +22,14 @@ El usuario puede interactuar con el programa de la siguiente manera:
 1. Crear un recurso específico (por ejemplo, un libro).
 2. Consultar la información del recurso creado.
 3. Expander la biblioteca digital agregando más recursos.
+
+## Compilar el programa
+1. Corre en la terminal de tu preferencia el siguiente comando
+'''
+g++ main.cpp -o biblioteca
+'''
+
+2. Ejecuta el programa
+'''
+./biblioteca
+'''

@@ -1,11 +1,47 @@
-@startuml class-diagram 
+@startuml class-diagram
 
-class Biblioteca {}
+class Biblioteca {
+    - std::vector<std::shared_ptr<Recurso>> recursos
 
-class Recurso {}
+    + void agregarRecurso(std::shared_ptr<Recurso> recurso)
+    + std::shared_ptr<Recurso> buscarRecursoPorId(int id) const
+    + bool eliminarRecursoPorId(int id)
+    + int contarRecursos() const
+    + int contarLibros() const
+    + int contarRevistas() const
+    + std::vector<std::shared_ptr<Recurso>> obtenerLibros() const
+    + std::vector<std::shared_ptr<Recurso>> obtenerRevistas() const
+    + std::vector<std::shared_ptr<Recurso>> obtenerRecursos() const
+}
 
-class Libro {}
+class Recurso {
+    - std::string contenido
+    - int id
+    - std::string titulo
 
-class Revista {}
+    + Recurso(std::string contenido, int id, std::string titulo)
+    + std::string getContenido() const
+    + int getId() const
+    + std::string getTitulo() const
+    + void setContenido(std::string contenido)
+    + void setId(int nuevoId)
+    + void setTitulo(std::string titulo)
+    + virtual std::string toString() const = 0
+    + virtual ~Recurso()
+}
+
+class Libro {
+    + Libro(std::string contenido, int id, std::string titulo)
+    + std::string toString() const
+}
+
+class Revista {
+    + Revista(std::string contenido, int id, std::string titulo)
+    + std::string toString() const
+}
+
+Recurso <|-- Libro
+Recurso <|-- Revista
+Biblioteca *-- "1..*" Recurso
 
 @enduml
