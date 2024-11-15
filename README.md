@@ -32,3 +32,10 @@ g++ main.cpp -o biblioteca
 '''
 ./biblioteca
 '''
+
+## Diagrama de clases
+![Diagrama](diagrama_uml.png)
+
+En el diagrama podemos ver como la clase de "Recurso" es la clase padre, el cual contiene como elementos privados el tipo de contenido, que es en cadena de texto, el tipo de identificador y el tipo de dato del título, en este caso, como una cadena de texto. Las clases "Libro" y "Revista" hereden toda la functionalidad y logica del padre, lo que ayuda a evitar el codigo duplicado en el programa. La clase "Biblioteca" tambien esta compuesta de un vector de Recursos, es decir, libros y revitas, al ambas clases hijas heredar la funcion del padre esto nos permite usarlas de forma intercambiada, encapsulando la informacion y logica de cada tipo. Ademas, gracias a esta herencia la clase de Biblioteca puede ser extendida a que contenga otros tipos de Recursos sin tener que modificar la clase Biblioteca.
+
+Como los hijos heredan toda la lógica del padre, solo se debe sobreescribir aquel comportamiento que debe ser especializado en cada caso, por ejemplo, la forma en la que se despliegan los detalles de cada clase debera ser diferente, pero ambas clases seguiran siendo hijos de Recurso.
