@@ -20,7 +20,7 @@ public:
     std::string getTitulo() const { return titulo; }
 
     void setContenido(string contenido) {
-        this->contenido = contenido;
+        this->contenido = contenido; /*this se refiere al objeto en qu eesta, con this puedes acceder a las variables*/
     }
 
     void setId(int nuevoId) {

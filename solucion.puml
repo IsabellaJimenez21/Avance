@@ -15,9 +15,9 @@ class Biblioteca {
 }
 
 class Recurso {
-    - std::string contenido
-    - int id
-    - std::string titulo
+    # std::string contenido
+    # int id
+    # std::string titulo
 
     + Recurso(std::string contenido, int id, std::string titulo)
     + std::string getContenido() const
@@ -31,17 +31,48 @@ class Recurso {
 }
 
 class Libro {
-    + Libro(std::string contenido, int id, std::string titulo)
+    - std::string genero
+    - int edicion
+    - std::string autor
+    
+    + Libro(std::string& contenido, int id, std::string& titulo, std::string& genero, int edicion, std::string& autor)
     + std::string toString() const
+    + std::string getGenero() const
+    + int getEdicion() const
+    + std::string getAutor() const 
+    + void setGenero(std::string genero)
+    + void setEdicion(int edicion)
+    + void setAutor(std::string autor)
 }
 
 class Revista {
-    + Revista(std::string contenido, int id, std::string titulo)
+    - std::string periodicidad
+    - int numEjemplar
+    - std::string tema
+
+    + Revista(std::string& contenido, int id, std::string& titulo, std::string& periodicidad, int numEjemplar, std::string& tema)
     + std::string toString() const
+    + std::string getPeriodicidad() const 
+    + int getEjemplar() const 
+    + std::string getTema() const 
+    + void setPeriodicidad(std::string periodicidad)
+    + void setEjemplar(int numEjemplar)
+    + void setTema(std::string tema)
+}
+
+class Interfaz {
+    - Biblioteca biblioteca
+
+    + void ejecutar()
+    - void mostrarMenu()
+    - void limpiarInput()
+    - void crearLibro()
+    - void crearRevista()
 }
 
 Recurso <|-- Libro
 Recurso <|-- Revista
-Biblioteca *-- "1..*" Recurso
+Biblioteca o-- "1..*" Recurso
+Interfaz *-- "1" Biblioteca
 
 @enduml
