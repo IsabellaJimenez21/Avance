@@ -6,10 +6,25 @@
 #include <string>
 #include <limits>
 
+/**
+ * @class Interfaz
+ * @brief Controla la interacción entre el usuario y el sistema de biblioteca virtual.
+ * 
+ * La clase `Interfaz` gestiona el flujo principal del programa, mostrando menús y manejando
+ * las opciones seleccionadas por el usuario. Permite crear, buscar, eliminar y listar recursos
+ * como libros y revistas.
+ */
 class Interfaz {
-private:
-    Biblioteca biblioteca;
 
+private:
+    Biblioteca biblioteca; ///< Instancia de la clase Biblioteca que contiene los recursos.
+
+    /**
+     * @brief Muestra el menú principal al usuario.
+     * 
+     * Proporciona opciones para interactuar con los recursos de la biblioteca, como crear,
+     * buscar, eliminar, y listar libros y revistas.
+     */
     void mostrarMenu() {
         std::cout << "\n=== Biblioteca Virtual ===\n";
         std::cout << "1. Mostrar todos los recursos\n";
@@ -24,11 +39,23 @@ private:
         std::cout << "Seleccione una opcion: ";
     }
 
+    /**
+     * @brief Limpia el flujo de entrada para manejar errores de entrada del usuario.
+     * 
+     * Este método se utiliza para descartar entradas inválidas y limpiar errores en el
+     * flujo estándar `std::cin`, garantizando un funcionamiento correcto.
+     */
     void limpiarInput() {
-        std::cin.clear(); // Limpia los errores en el stream
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta el resto de la entrada
+        std::cin.clear(); 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
+    /**
+     * @brief Permite al usuario crear y agregar un nuevo libro a la biblioteca.
+     * 
+     * Solicita al usuario información sobre el contenido, ID, título, género, número de
+     * páginas y autor del libro. Después, lo agrega a la biblioteca.
+     */
     void crearLibro() {
         std::string contenido, titulo, genero, autor;
         int id, paginas;
@@ -54,6 +81,12 @@ private:
         std::cout << "Libro agregado exitosamente!\n";
     }
 
+    /**
+     * @brief Permite al usuario crear y agregar una nueva revista a la biblioteca.
+     * 
+     * Solicita al usuario información sobre el contenido, ID, título, periodicidad,
+     * número de páginas y tema de la revista. Luego, lo agrega a la biblioteca.
+     */
     void crearRevista() {
         std::string contenido, titulo, periodicidad, tema;
         int id, paginas;
@@ -80,6 +113,12 @@ private:
     }
 
 public:
+    /**
+     * @brief Inicia la ejecución de la interfaz.
+     * 
+     * Muestra el menú principal en un bucle y permite al usuario seleccionar
+     * y ejecutar diversas opciones. Se detiene cuando el usuario selecciona la opción de salida.
+     */
     void ejecutar() {
         int opcion;
 
@@ -87,10 +126,10 @@ public:
             mostrarMenu();
             std::cin >> opcion;
 
-            if (std::cin.fail()) { // Si el usuario ingresa algo invalido
+            if (std::cin.fail()) { 
                 limpiarInput();
                 std::cout << "Por favor, selecciona una opcion valida.\n";
-                continue; // Reinicia el bucle correctamente
+                continue; 
             }
 
             switch (opcion) {
@@ -151,4 +190,3 @@ public:
         } while (opcion != 0);
     }
 };
-
