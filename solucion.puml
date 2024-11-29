@@ -1,63 +1,62 @@
 @startuml class-diagram
 
 class Biblioteca {
-    - std::vector<std::shared_ptr<Recurso>> recursos
+    - vector<Libro> libros
+    - vector<Revista> revistas
 
-    + void agregarRecurso(std::shared_ptr<Recurso> recurso)
-    + std::shared_ptr<Recurso> buscarRecursoPorId(int id) const
-    + bool eliminarRecursoPorId(int id)
+    + void agregarLibro(Libro libro)
+    + void agregarRevista(Revista revista)
+    + void imprimirLibroPorId(int id)
+    + void imprimirRevistaPorId(int id)
     + int contarRecursos() const
     + int contarLibros() const
     + int contarRevistas() const
-    + std::vector<std::shared_ptr<Recurso>> obtenerLibros() const
-    + std::vector<std::shared_ptr<Recurso>> obtenerRevistas() const
-    + std::vector<std::shared_ptr<Recurso>> obtenerRecursos() const
+    + vector<Libro> obtenerLibros() const
+    + vector<Revista> obtenerRevistas() const
 }
 
 class Recurso {
-    # std::string contenido
+    # string contenido
     # int id
-    # std::string titulo
+    # string titulo
 
-    + Recurso(std::string contenido, int id, std::string titulo)
-    + std::string getContenido() const
-    + int getId() const
-    + std::string getTitulo() const
-    + void setContenido(std::string contenido)
+    + Recurso(string contenido, int id, string titulo)
+    + string getContenido() 
+    + int getId() 
+    + string getTitulo() 
+    + void setContenido(string contenido)
     + void setId(int nuevoId)
-    + void setTitulo(std::string titulo)
-    + virtual std::string toString() const = 0
-    + virtual ~Recurso()
+    + void setTitulo(string titulo)
 }
 
 class Libro {
-    - std::string genero
+    - string genero
     - int edicion
-    - std::string autor
+    - string autor
     
-    + Libro(std::string& contenido, int id, std::string& titulo, std::string& genero, int edicion, std::string& autor)
-    + std::string toString() const
-    + std::string getGenero() const
-    + int getEdicion() const
-    + std::string getAutor() const 
-    + void setGenero(std::string genero)
+    + Libro(string contenido, int id, string titulo, string genero, int edicion, string autor)
+    + string toString() 
+    + string getGenero() 
+    + int getEdicion() 
+    + string getAutor() 
+    + void setGenero(string genero)
     + void setEdicion(int edicion)
-    + void setAutor(std::string autor)
+    + void setAutor(string autor)
 }
 
 class Revista {
-    - std::string periodicidad
+    - string periodicidad
     - int numEjemplar
-    - std::string tema
+    - string tema
 
-    + Revista(std::string& contenido, int id, std::string& titulo, std::string& periodicidad, int numEjemplar, std::string& tema)
-    + std::string toString() const
-    + std::string getPeriodicidad() const 
-    + int getEjemplar() const 
-    + std::string getTema() const 
-    + void setPeriodicidad(std::string periodicidad)
+    + Revista(string contenido, int id, string titulo, string periodicidad, int numEjemplar, string tema)
+    + string toString() 
+    + string getPeriodicidad() 
+    + int getEjemplar() 
+    + string getTema() 
+    + void setPeriodicidad(string periodicidad)
     + void setEjemplar(int numEjemplar)
-    + void setTema(std::string tema)
+    + void setTema(string tema)
 }
 
 class Interfaz {
@@ -65,14 +64,14 @@ class Interfaz {
 
     + void ejecutar()
     - void mostrarMenu()
-    - void limpiarInput()
     - void crearLibro()
     - void crearRevista()
 }
 
-Recurso <|-- Libro
-Recurso <|-- Revista
-Biblioteca o-- "1..*" Recurso
+Recurso <|-up- Libro
+Recurso <|-up- Revista
+Biblioteca o-- "0..*" Libro
+Biblioteca o-- "0..*" Revista
 Interfaz *-- "1" Biblioteca
 
 @enduml

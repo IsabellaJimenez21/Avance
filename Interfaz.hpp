@@ -2,9 +2,7 @@
 #include "Libro.hpp"
 #include "Revista.hpp"
 #include <iostream>
-#include <memory>
 #include <string>
-#include <limits>
 
 /**
  * @class Interfaz
@@ -28,8 +26,8 @@ private:
     void mostrarMenu() {
         std::cout << "\n=== Biblioteca Virtual ===\n";
         std::cout << "1. Mostrar todos los recursos\n";
-        std::cout << "2. Buscar recurso por ID\n";
-        std::cout << "3. Eliminar recurso por ID\n";
+        std::cout << "2. Buscar libro por ID\n";
+        std::cout << "3. Buscar revista por ID\n";
         std::cout << "4. Contar recursos\n";
         std::cout << "5. Crear nuevo libro\n";
         std::cout << "6. Crear nueva revista\n";
@@ -37,17 +35,6 @@ private:
         std::cout << "8. Mostrar solo revistas\n";
         std::cout << "0. Salir\n";
         std::cout << "Seleccione una opcion: ";
-    }
-
-    /**
-     * @brief Limpia el flujo de entrada para manejar errores de entrada del usuario.
-     * 
-     * Este método se utiliza para descartar entradas inválidas y limpiar errores en el
-     * flujo estándar `std::cin`, garantizando un funcionamiento correcto.
-     */
-    void limpiarInput() {
-        std::cin.clear(); 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
     /**
@@ -76,8 +63,8 @@ private:
         std::cout << "Ingrese el autor del libro: ";
         std::getline(std::cin, autor);
 
-        auto libro = std::make_shared<Libro>(contenido, id, titulo, genero, paginas, autor);
-        biblioteca.agregarRecurso(libro);
+        Libro libro = Libro(contenido, id, titulo, genero, paginas, autor);
+        biblioteca.agregarLibro(libro);
         std::cout << "Libro agregado exitosamente!\n";
     }
 
@@ -107,8 +94,8 @@ private:
         std::cout << "Ingrese el tema de la revista: ";
         std::getline(std::cin, tema);
 
-        auto revista = std::make_shared<Revista>(contenido, id, titulo, periodicidad, paginas, tema);
-        biblioteca.agregarRecurso(revista);
+        Revista revista = Revista(contenido, id, titulo, periodicidad, paginas, tema);
+        biblioteca.agregarRevista(revista);
         std::cout << "Revista agregada exitosamente!\n";
     }
 
@@ -126,39 +113,32 @@ public:
             mostrarMenu();
             std::cin >> opcion;
 
-            if (std::cin.fail()) { 
-                limpiarInput();
+            if (std::cin.fail()) {
                 std::cout << "Por favor, selecciona una opcion valida.\n";
                 continue; 
             }
 
             switch (opcion) {
                 case 1:
-                    for (const auto& recurso : biblioteca.obtenerRecursos()) {
-                        std::cout << recurso->toString() << std::endl;
+                    for (Libro libro : biblioteca.obtenerLibros()) {
+                        std::cout << libro.toString() << std::endl;
+                    }
+                    for (Revista revista : biblioteca.obtenerRevistas()) {
+                        std::cout << revista.toString() << std::endl;
                     }
                     break;
                 case 2: {
                     int id;
-                    std::cout << "Ingrese el ID del recurso a buscar: ";
+                    std::cout << "Ingrese el ID del libro a buscar: ";
                     std::cin >> id;
-                    auto recurso = biblioteca.buscarRecursoPorId(id);
-                    if (recurso) {
-                        std::cout << recurso->toString() << std::endl;
-                    } else {
-                        std::cout << "Recurso no encontrado.\n";
-                    }
+                    biblioteca.imprimirLibroPorId(id);
                     break;
                 }
                 case 3: {
                     int id;
-                    std::cout << "Ingrese el ID del recurso a eliminar: ";
+                    std::cout << "Ingrese el ID de la revista a buscar: ";
                     std::cin >> id;
-                    if (biblioteca.eliminarRecursoPorId(id)) {
-                        std::cout << "Recurso eliminado exitosamente.\n";
-                    } else {
-                        std::cout << "Recurso no encontrado.\n";
-                    }
+                    biblioteca.imprimirRevistaPorId(id);
                     break;
                 }
                 case 4:
@@ -171,13 +151,13 @@ public:
                     crearRevista();
                     break;
                 case 7:
-                    for (const auto& libro : biblioteca.obtenerLibros()) {
-                        std::cout << libro->toString() << std::endl;
+                    for (Libro libro : biblioteca.obtenerLibros()) {
+                        std::cout << libro.toString() << std::endl;
                     }
                     break;
                 case 8:
-                    for (const auto& revista : biblioteca.obtenerRevistas()) {
-                        std::cout << revista->toString() << std::endl;
+                    for (Revista revista : biblioteca.obtenerRevistas()) {
+                        std::cout << revista.toString() << std::endl;
                     }
                     break;
                 case 0:

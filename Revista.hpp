@@ -21,7 +21,7 @@ private:
 
 public:
     /**
-     * @brief Constructor parametrizado para inicializar una revista.
+     * @brief Constructor para inicializar una revista.
      * 
      * @param contenido Contenido de la revista (texto descriptivo).
      * @param id Identificador único de la revista.
@@ -32,7 +32,7 @@ public:
      * 
      * @note Utiliza inicialización de lista para llamar al constructor de la clase base `Recurso`.
      */
-    Revista(const std::string& contenido, int id, const std::string& titulo, const std::string& periodicidad, int numEjemplar, const std::string& tema)
+    Revista(std::string contenido, int id, std::string titulo, std::string periodicidad, int numEjemplar, std::string tema)
         : Recurso(contenido, id, titulo) {
         this->periodicidad = periodicidad;
         this->numEjemplar = numEjemplar;
@@ -46,7 +46,7 @@ public:
      * 
      * @details Este método sobrescribe la función virtual pura `toString()` de la clase base `Recurso`.
      */
-    std::string toString() const override {
+    std::string toString() {
         return "Revista - Titulo: " + getTitulo() + 
                ", ID: " + std::to_string(getId()) + 
                ", Contenido: " + getContenido() + 
@@ -59,19 +59,25 @@ public:
      * @brief Obtiene la periodicidad de la revista.
      * @return La periodicidad de la revista.
      */
-    std::string getPeriodicidad() const { return periodicidad; }
+    std::string getPeriodicidad() { 
+        return periodicidad; 
+    }
 
     /**
      * @brief Obtiene el número del ejemplar de la revista.
      * @return El número del ejemplar.
      */
-    int getEjemplar() const { return numEjemplar; }
+    int getEjemplar() { 
+        return numEjemplar; 
+    }
 
     /**
      * @brief Obtiene el tema principal de la revista.
      * @return El tema principal.
      */
-    std::string getTema() const { return tema; }
+    std::string getTema() { 
+        return tema; 
+    }
 
     /**
      * @brief Establece la periodicidad de la revista.

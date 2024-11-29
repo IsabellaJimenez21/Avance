@@ -21,7 +21,7 @@ private:
 
 public:
     /**
-     * @brief Constructor parametrizado para inicializar un libro.
+     * @brief Constructor para inicializar un libro.
      * 
      * @param contenido Contenido del libro (texto descriptivo).
      * @param id Identificador único del libro.
@@ -32,7 +32,7 @@ public:
      * 
      * @note Utiliza inicialización de lista para llamar al constructor de la clase base `Recurso`.
      */
-    Libro(const std::string& contenido, int id, const std::string& titulo, const std::string& genero, int edicion, const std::string& autor)
+    Libro(std::string contenido, int id, std::string titulo, std::string genero, int edicion, std::string autor)
         : Recurso(contenido, id, titulo) {
         this->genero = genero;
         this->edicion = edicion;
@@ -46,7 +46,7 @@ public:
      * 
      * @details Este método sobrescribe la función virtual pura `toString()` de la clase base `Recurso`.
      */
-    std::string toString() const override {
+    std::string toString() {
         return "Libro - Titulo: " + getTitulo() + 
                ", ID: " + std::to_string(getId()) + 
                ", Contenido: " + getContenido() +
@@ -59,19 +59,25 @@ public:
      * @brief Obtiene el género literario del libro.
      * @return El género del libro.
      */
-    std::string getGenero() const { return genero; }
+    std::string getGenero() { 
+        return genero; 
+    }
 
     /**
      * @brief Obtiene el número de edición del libro.
      * @return La edición del libro.
      */
-    int getEdicion() const { return edicion; }
+    int getEdicion() { 
+        return edicion; 
+    }
 
     /**
      * @brief Obtiene el nombre del autor del libro.
      * @return El autor del libro.
      */
-    std::string getAutor() const { return autor; }
+    std::string getAutor() { 
+        return autor; 
+    }
 
     /**
      * @brief Establece el género del libro.

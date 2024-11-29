@@ -5,8 +5,7 @@
 #include "Libro.hpp"
 #include "Revista.hpp"
 #include <vector>
-#include <memory>
-#include <algorithm>
+#include <iostream>
 
 /**
  * @class Biblioteca
@@ -17,53 +16,56 @@
  */
 class Biblioteca {
 private:
-    std::vector<std::shared_ptr<Recurso>> recursos; ///< Contenedor que almacena los recursos de la biblioteca.
+    std::vector<Libro> libros;
+    std::vector<Revista> revistas;
 
 public:
     /**
-     * @brief Agrega un nuevo recurso a la biblioteca.
+     * @brief Agrega un nuevo libro a la biblioteca.
      * 
-     * El recurso solo se agrega si su ID no existe previamente en la colección.
-     * 
-     * @param recurso Puntero compartido al recurso que se desea agregar.
+     * @param libro Libro que se desea agregar.
      */
-    void agregarRecurso(const std::shared_ptr<Recurso>& recurso) {
-        if (buscarRecursoPorId(recurso->getId()) == nullptr) {
-            recursos.push_back(recurso);
-        }
+    void agregarLibro(Libro libro) {
+        libros.push_back(libro);
     }
 
     /**
-     * @brief Busca un recurso por su ID.
+     * @brief Agrega una nueva revista a la biblioteca.
      * 
-     * @param id Identificador único del recurso.
-     * @return Un puntero compartido al recurso si se encuentra, o nullptr si no existe.
+     * @param revista Revista que se desea agregar.
      */
-    std::shared_ptr<Recurso> buscarRecursoPorId(int id) const {
-        for (const auto& recurso : recursos) {
-            if (recurso->getId() == id) {
-                return recurso;
+    void agregarRevista(Revista revista) {
+        revistas.push_back(revista);
+    }
+
+    /**
+     * @brief Busca un libro por su ID.
+     * 
+     * @param id Identificador único del libro.
+     */
+    void imprimirLibroPorId(int id) {
+        for (Libro libro : libros) {
+            if (libro.getId() == id) {
+                cout << libro.toString() << endl;
+                return;
             }
         }
-        return nullptr;
+        cout << "No se encontro el libro" << endl;
     }
 
     /**
-     * @brief Elimina un recurso por su ID.
+     * @brief Busca una revista por su ID.
      * 
-     * @param id Identificador único del recurso a eliminar.
-     * @return `true` si el recurso fue eliminado exitosamente, `false` si no se encontró.
+     * @param id Identificador único de la revista.
      */
-    bool eliminarRecursoPorId(int id) {
-        auto it = std::remove_if(recursos.begin(), recursos.end(),
-                                 [id](const std::shared_ptr<Recurso>& recurso) {
-                                     return recurso->getId() == id;
-                                 });
-        if (it != recursos.end()) {
-            recursos.erase(it, recursos.end());
-            return true;
+    void imprimirRevistaPorId(int id) {
+        for (Revista revista : revistas) {
+            if (revista.getId() == id) {
+                cout << revista.toString() << endl;
+                return;
+            }
         }
-        return false;
+        cout << "No se encontro la revista" << endl;
     }
 
     /**
@@ -71,8 +73,8 @@ public:
      * 
      * @return Número total de recursos.
      */
-    int contarRecursos() const {
-        return recursos.size();
+    int contarRecursos() {
+        return libros.size() + revistas.size();
     }
 
     /**
@@ -80,14 +82,8 @@ public:
      * 
      * @return Número total de libros.
      */
-    int contarLibros() const {
-        int count = 0;
-        for (const auto& recurso : recursos) {
-            if (std::dynamic_pointer_cast<Libro>(recurso)) {
-                count++;
-            }
-        }
-        return count;
+    int contarLibros() {
+        return libros.size();
     }
 
     /**
@@ -95,53 +91,26 @@ public:
      * 
      * @return Número total de revistas.
      */
-    int contarRevistas() const {
-        int count = 0;
-        for (const auto& recurso : recursos) {
-            if (std::dynamic_pointer_cast<Revista>(recurso)) {
-                count++;
-            }
-        }
-        return count;
+    int contarRevistas() {
+        return revistas.size();
     }
-
+    
     /**
-     * @brief Obtiene todos los libros en la biblioteca.
+     * @brief Obtiene todos los libros almacenados en la biblioteca.
      * 
-     * @return Vector de punteros compartidos a los libros.
+     * @return Vector libros en la biblioteca.
      */
-    std::vector<std::shared_ptr<Recurso>> obtenerLibros() const {
-        std::vector<std::shared_ptr<Recurso>> libros;
-        for (const auto& recurso : recursos) {
-            if (std::dynamic_pointer_cast<Libro>(recurso)) {
-                libros.push_back(recurso);
-            }
-        }
+    std::vector<Libro> obtenerLibros() {
         return libros;
     }
-
+    
     /**
-     * @brief Obtiene todas las revistas en la biblioteca.
+     * @brief Obtiene todos los libros almacenados en la biblioteca.
      * 
-     * @return Vector de punteros compartidos a las revistas.
+     * @return Vector libros en la biblioteca.
      */
-    std::vector<std::shared_ptr<Recurso>> obtenerRevistas() const {
-        std::vector<std::shared_ptr<Recurso>> revistas;
-        for (const auto& recurso : recursos) {
-            if (std::dynamic_pointer_cast<Revista>(recurso)) {
-                revistas.push_back(recurso);
-            }
-        }
+    std::vector<Revista> obtenerRevistas() {
         return revistas;
-    }
-
-    /**
-     * @brief Obtiene todos los recursos almacenados en la biblioteca.
-     * 
-     * @return Vector de punteros compartidos a los recursos.
-     */
-    std::vector<std::shared_ptr<Recurso>> obtenerRecursos() const {
-        return recursos;
     }
 };
 
